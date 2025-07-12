@@ -20,6 +20,38 @@ function AppContent() {
     }
   }, [location.pathname]);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://3.110.188.16:8000/api/generate-weekly-summaries', {
+        method: 'POST',
+        headers: {
+          'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
+          'Connection': 'keep-alive',
+          'Origin': 'http://3.110.188.16:8000',
+          'Referer': 'http://3.110.188.16:8000/docs',
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
+          'accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({}) // Empty body as per your curl request
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('API Response:', data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  };
+  useEffect(() => {
+      fetchData();
+  }, [])
+
   const handleDashboardSelect = (dashboardId) => {
     // Navigate to the appropriate route based on dashboard selection
     if (dashboardId === 'weekly' || dashboardId === 'cso') {
