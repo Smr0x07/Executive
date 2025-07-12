@@ -44,7 +44,7 @@ const KeyInitiatives = ({ initiatives, title = "Progress on Key Initiatives" }) 
                                     {initiative.progress}% Complete • {initiative.status}
                                 </div>
                                 <div className="text-xs text-white/50 group-hover:text-white/70 transition-colors">
-                                    Est. completion: Q1 2025
+                                    Est. completion: Q3 2025
                                 </div>
                             </div>
                         </div>

@@ -203,7 +203,7 @@ const CTODashboard = ({ onBackToLanding }) => {
                     {
                         title: 'Reduce DM Latency',
                         description: 'Improve DM latency by 50 percent',
-                        people: ['Prishita Raj', 'Hardaat Singh'],
+                        people: ['Prishita Raj', 'Hardaat Singh', 'Ankit Dhiman', 'Chintan Gotecha'],
                         meetingDate: 'Jul 7, 2025',
                         priority: 'High',
                         status: 'Development'

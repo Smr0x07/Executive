@@ -2,15 +2,34 @@ import React, { useState } from 'react';
 import { Users, CheckCircle, Calendar, ChevronDown, ChevronUp, Target } from 'lucide-react';
 import GlassCard from '../UI/GlassCard';
 import CustomDropdown from '../UI/CustomDropdown';
+import toast from 'react-hot-toast';
 
 const TeamDecisionCard = ({ decision, index, enableMeetingScheduling = true, showPriorityBadges = true }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+
   const handleScheduleMeeting = () => {
     if (enableMeetingScheduling) {
-      window.open('https://calendar.app.google/hfNAa4s1LwJBR4Mj9', '_blank');
+      console.log("Clicking");
+      toast.success("Meeting scheduled with Ankit, Chintan, and Hardaat at 3:00 PM", {
+        icon: '📅',
+        duration: 8000, // stays for 8 seconds (default is 5 sec)
+        style: {
+          fontSize: '18px',
+          padding: '16px 24px',
+          borderRadius: '12px',
+          background: '#1e1e2f',
+          color: '#fff',
+          border: '1px solid #444',
+          boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
+        },
+      });
+
+      // Optional: Open calendar link or take real action
+      // window.open('https://calendar.app.google/hfNAa4s1LwJBR4Mj9', '_blank');
     }
   };
+
 
   return (
     <GlassCard

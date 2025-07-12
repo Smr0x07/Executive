@@ -16,9 +16,6 @@ const Header = ({ weeks, selectedWeek, onWeekChange, titles = {}, enableWeekSele
                     <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-1"></div>
                 </div>
             </div>
-            <p className="text-white/70 text-base pl-14">
-                {titles?.subtitle || "Comprehensive overview of team achievements and metrics"}
-            </p>
         </div>
 
         {enableWeekSelection && weeks && selectedWeek && (
