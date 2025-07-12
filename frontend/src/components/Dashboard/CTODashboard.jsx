@@ -107,7 +107,7 @@ const CTODashboard = ({ onBackToLanding }) => {
                 {
                     heading: 'PartnerPlex solutioning in full swing',
                     description: ['The new client project PartnerPlex is going on in full swing, with discussions on what are the future scope of collaborations between the two companies.'],
-                    peopleInvolved: ['Vidit Beinjaine', 'Abhilash Jain', 'Anuj Modi']
+                    peopleInvolved: ['Vidit ', 'Abhilash Jain', 'Anuj Modi']
                 }
             ]
         },
@@ -203,7 +203,7 @@ const CTODashboard = ({ onBackToLanding }) => {
                     {
                         title: 'Reduce DM Latency',
                         description: 'Improve DM latency by 50 percent',
-                        people: ['Chintan Gotecha', 'Ankit Dhiman', 'Hardaat Singh'],
+                        people: ['Prishita Raj', 'Hardaat Singh'],
                         meetingDate: 'Jul 7, 2025',
                         priority: 'High',
                         status: 'Development'

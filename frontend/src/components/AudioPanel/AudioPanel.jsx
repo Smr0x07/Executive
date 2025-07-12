@@ -5,7 +5,7 @@ import { Play, Pause, Volume2, Mic, Headphones, ArrowLeft, User } from 'lucide-r
 const AudioPanel = ({
     title = "Weekly Summary",
     audioFileName = "cto_updates.wav", // Just pass filename
-    userName = "Hardaat Singh", // Add userName prop
+    userName = "Prishita Raj", // Add userName prop
     onBackToLanding
 }) => {
     const audioRef = useRef(null);

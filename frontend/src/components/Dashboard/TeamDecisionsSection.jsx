@@ -8,18 +8,17 @@ const TeamDecisionCard = ({ decision, index, enableMeetingScheduling = true, sho
 
   const handleScheduleMeeting = () => {
     if (enableMeetingScheduling) {
-      alert(`Scheduling follow-up meeting with: ${decision.people.join(', ')}`);
+      window.open('https://calendar.app.google/hfNAa4s1LwJBR4Mj9', '_blank');
     }
   };
 
   return (
-    <GlassCard 
-      className={`transition-all duration-300 cursor-pointer hover:bg-white/15 ${
-        isExpanded ? 'bg-white/10' : 'bg-white/5'
-      }`}
+    <GlassCard
+      className={`transition-all duration-300 cursor-pointer hover:bg-white/15 ${isExpanded ? 'bg-white/10' : 'bg-white/5'
+        }`}
     >
       {/* Card Header - Always Visible */}
-      <div 
+      <div
         className="flex items-start justify-between p-5"
         onClick={() => setIsExpanded(!isExpanded)}
       >
@@ -31,11 +30,10 @@ const TeamDecisionCard = ({ decision, index, enableMeetingScheduling = true, sho
             </h4>
             <div className="flex items-center space-x-3 text-left">
               {showPriorityBadges && (
-                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  decision.priority === 'High' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
-                  decision.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30' :
-                  'bg-green-500/20 text-green-300 border border-green-500/30'
-                }`}>
+                <span className={`px-3 py-1 rounded-full text-xs font-medium ${decision.priority === 'High' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
+                    decision.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30' :
+                      'bg-green-500/20 text-green-300 border border-green-500/30'
+                  }`}>
                   {decision.priority} Priority
                 </span>
               )}
@@ -43,18 +41,17 @@ const TeamDecisionCard = ({ decision, index, enableMeetingScheduling = true, sho
             </div>
           </div>
         </div>
-        
+
         <div className="flex items-center space-x-3 flex-shrink-0">
-          <span className={`px-3 py-1.5 rounded-lg text-xs font-medium border ${
-            decision.status === 'Completed' ? 'bg-green-500/20 text-green-300 border-green-500/30' :
-            decision.status === 'In Progress' ? 'bg-blue-500/20 text-blue-300 border-blue-500/30' :
-            decision.status === 'Planning' ? 'bg-purple-500/20 text-purple-300 border-purple-500/30' :
-            'bg-gray-500/20 text-gray-300 border-gray-500/30'
-          }`}>
+          <span className={`px-3 py-1.5 rounded-lg text-xs font-medium border ${decision.status === 'Completed' ? 'bg-green-500/20 text-green-300 border-green-500/30' :
+              decision.status === 'In Progress' ? 'bg-blue-500/20 text-blue-300 border-blue-500/30' :
+                decision.status === 'Planning' ? 'bg-purple-500/20 text-purple-300 border-purple-500/30' :
+                  'bg-gray-500/20 text-gray-300 border-gray-500/30'
+            }`}>
             {decision.status}
           </span>
-          {isExpanded ? 
-            <ChevronUp className="w-5 h-5 text-white/70" /> : 
+          {isExpanded ?
+            <ChevronUp className="w-5 h-5 text-white/70" /> :
             <ChevronDown className="w-5 h-5 text-white/70" />
           }
         </div>
@@ -81,7 +78,7 @@ const TeamDecisionCard = ({ decision, index, enableMeetingScheduling = true, sho
               </h5>
               <div className="flex flex-wrap gap-2 pl-6">
                 {decision.people.map((person, personIndex) => (
-                  <span 
+                  <span
                     key={personIndex}
                     className="px-3 py-1.5 bg-gradient-to-r from-white/10 to-white/5 border border-white/20 rounded-lg text-xs text-white/90 font-medium"
                   >
@@ -105,7 +102,7 @@ const TeamDecisionCard = ({ decision, index, enableMeetingScheduling = true, sho
                   <span>Schedule Follow-up</span>
                 </button>
               )}
-              
+
               <button
                 onClick={(e) => e.stopPropagation()}
                 className="px-4 py-2.5 bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 border border-white/20 rounded-lg text-white/80 text-sm font-medium transition-all"
@@ -120,7 +117,7 @@ const TeamDecisionCard = ({ decision, index, enableMeetingScheduling = true, sho
   );
 };
 
-const TeamDecisionsSection = ({ 
+const TeamDecisionsSection = ({
   selectedSubTeam,
   onSubTeamChange,
   teamDecisions,
@@ -152,7 +149,7 @@ const TeamDecisionsSection = ({
         <Users className="w-5 h-5 mr-3" />
         {title}
       </h2>
-      
+
       {/* Single Sub-team Selection */}
       <div className="mb-6 max-w-xs">
         <CustomDropdown
@@ -167,15 +164,15 @@ const TeamDecisionsSection = ({
       {/* Enhanced Decision Cards */}
       <div className="space-y-4">
         {teamDecisions[currentTeam]?.[selectedSubTeam]?.map((decision, index) => (
-          <TeamDecisionCard 
-            key={index} 
-            decision={decision} 
+          <TeamDecisionCard
+            key={index}
+            decision={decision}
             index={index}
             enableMeetingScheduling={enableMeetingScheduling}
             showPriorityBadges={showPriorityBadges}
           />
         ))}
-        
+
         {(!teamDecisions[currentTeam]?.[selectedSubTeam] || teamDecisions[currentTeam]?.[selectedSubTeam]?.length === 0) && (
           <GlassCard className="p-8 text-center">
             <p className="text-white/60">No decisions found for this team.</p>
