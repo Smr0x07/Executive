@@ -9,11 +9,11 @@ import KeyInitiatives from './KeyInitiatives';
 import ActionItems from './ActionItems';
 import AudioPanel from '../AudioPanel/AudioPanel';
 
-const WeeklyProgressDashboard = ({ onBackToLanding, base64Audio }) => {
+const WeeklyProgressDashboard = ({onBackToLanding}) => {
     // Simplified state management
     const [selectedWeek, setSelectedWeek] = useState(sampleData.weeks[0]);
-    const [selectedDepartment, setSelectedDepartment] = useState('sales');
-    const [selectedSubTeam, setSelectedSubTeam] = useState('growth');
+    const [selectedDepartment, setSelectedDepartment] = useState('HR');
+    const [selectedSubTeam, setSelectedSubTeam] = useState('voiceX');
     const [isPlaying, setIsPlaying] = useState(false);
 
     const handleWeekChange = (week) => {
@@ -69,9 +69,9 @@ const WeeklyProgressDashboard = ({ onBackToLanding, base64Audio }) => {
 
                 {/* Audio Panel - 20% */}
                 <AudioPanel
-                    isPlaying={isPlaying}
-                    onPlayPause={handlePlayPause}
-                    base64Audio={base64Audio}
+                    onBackToLanding={onBackToLanding}
+                    title="Weekly Summary"
+                    audioFileName="weekly-summary.mp3"  // Just pass filename
                 />
             </div>
         </div>

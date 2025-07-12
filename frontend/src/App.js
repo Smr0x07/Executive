@@ -1,27 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage';
 import WeeklyProgressDashboard from './components/Dashboard/WeeklyProgressDashboard';
 import CTODashboard from './components/Dashboard/CTODashboard';
 import './App.css';
 
-function App() {
-  const [currentView, setCurrentView] = useState('landing'); // 'landing', 'weekly', 'cto'
-  const [audioData, setAudioData] = useState(null); // Will store base64 audio from backend
+// Main App component wrapped with router logic
+function AppContent() {
+  const [audioData, setAudioData] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Simulate audio data when navigating to dashboard routes
+  useEffect(() => {
+    if (location.pathname === '/cto' || location.pathname === '/cso') {
+      simulateAudioFromBackend();
+    } else {
+      setAudioData(null);
+    }
+  }, [location.pathname]);
 
   const handleDashboardSelect = (dashboardId) => {
-    setCurrentView(dashboardId);
-
-    // Simulate receiving base64 audio from backend
-    // In production, this would come from your API
-    simulateAudioFromBackend();
+    // Navigate to the appropriate route based on dashboard selection
+    if (dashboardId === 'weekly' || dashboardId === 'cso') {
+      navigate('/cso');
+    } else if (dashboardId === 'cto') {
+      navigate('/cto');
+    }
   };
 
   const handleBackToLanding = () => {
-    setCurrentView('landing');
-    setAudioData(null); // Clear audio when going back
+    navigate('/');
+    setAudioData(null);
   };
 
-  // Simulate receiving base64 audio from backend
   const simulateAudioFromBackend = () => {
     // This simulates what your backend would send
     // In real implementation, you'd fetch this from your API
@@ -37,90 +49,51 @@ function App() {
     console.log('Audio data received from backend:', mockBase64Audio ? 'Audio loaded' : 'No audio data');
   };
 
-  // Function to load audio from backend (you can call this when needed)
- const loadAudioFromBackend = async () => {
-  try {
-    // TEST AUDIO: Replace this with your actual API call later
-    const testBase64Audio = "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhCSaFveSWKQcRAb7w6p5UEx6Q1/PSZy0NF4YR8NiGNwgVZ7zj53dKAB6O3O7KdSkLEluz5+SqYhoOWKXi8bNlGAkhhbDklywIFAGz5PKgVRERNqHe8rloGQgjhbDjlC0HDwOy4vCiWBUMS5/e8blpHAkhfrLklC0HD2m04u+uZhwKJYez5ZUqBxB1s+Hst2UZCSOEs+SVLQYRN6fg8bduLQ8XiL3q57JgEAydm93w0G8yDB6A0O7SbiYPFoS976ykXBEOS4fY8N2PLBAO";
-    
-    setAudioData(testBase64Audio);
-    console.log('✅ Test audio loaded! You should hear a 2-second tone.',audioData);
-    
-  } catch (error) {
-    console.error('Error loading audio:', error);
-  }
-};
-
-  const renderCurrentView = () => {
-    switch (currentView) {
-      case 'weekly':
-        return (
-          <WeeklyProgressDashboard
-            onBackToLanding={handleBackToLanding}
-            base64Audio={audioData}
-          />
-        );
-      case 'cto':
-        return (
-          <CTODashboard
-            onBackToLanding={handleBackToLanding}
-            base64Audio={audioData}
-          />
-        );
-      default:
-        return <LandingPage onDashboardSelect={handleDashboardSelect} />;
-    }
-  };
-
   return (
     <div className="App">
-      {/* Development Helper - Remove in production */}
-      {process.env.NODE_ENV === 'development' && currentView !== 'landing' && (
-        <div className="fixed bottom-4 right-4 z-50">
-          <button
-            onClick={loadAudioFromBackend}
-            className="px-3 py-2 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 rounded-lg text-purple-300 text-xs font-medium transition-all"
-          >
-            Load Audio (Dev)
-          </button>
-        </div>
-      )}
+      <Routes>
+        {/* Landing page route */}
+        <Route
+          path="/"
+          element={<LandingPage onDashboardSelect={handleDashboardSelect} />}
+        />
 
-      {/* Render Current View */}
-      {renderCurrentView()}
+        {/* CSO Dashboard route (Weekly Progress Dashboard) */}
+        <Route
+          path="/cso"
+          element={
+            <WeeklyProgressDashboard
+              onBackToLanding={handleBackToLanding}
+              base64Audio={audioData}
+            />
+          }
+        />
+
+        {/* CTO Dashboard route */}
+        <Route
+          path="/cto"
+          element={
+            <CTODashboard
+              onBackToLanding={handleBackToLanding}
+              base64Audio={audioData}
+            />
+          }
+        />
+
+        {/* Fallback route - redirect to landing */}
+        <Route path="*" element={<LandingPage onDashboardSelect={handleDashboardSelect} />} />
+      </Routes>
     </div>
   );
 }
 
-/*
-To integrate with your backend:
-
-1. Replace simulateAudioFromBackend() with actual API call:
-   
-   const fetchAudioFromBackend = async () => {
-     try {
-       const response = await fetch('/api/weekly-audio', {
-         method: 'GET',
-         headers: { 'Authorization': 'Bearer your-token' }
-       });
-       const data = await response.json();
-       setAudioData(data.base64Audio); // Backend should return { base64Audio: "data:audio/wav;base64,..." }
-     } catch (error) {
-       console.error('Error fetching audio:', error);
-     }
-   };
-
-2. Call this function when dashboard loads:
-   useEffect(() => {
-     if (currentView !== 'landing') {
-       fetchAudioFromBackend();
-     }
-   }, [currentView]);
-
-3. Backend should return base64 audio in format:
-   {
-     "base64Audio": "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhCSaFveSWKQcRAb7w6p5UEx6Q1/PSZy0NF4YR8NiGNwgVZ7zj53dKAB6O3O7K"
-   }
-*/
+// Main App component with Router wrapper
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
 
 export default App;

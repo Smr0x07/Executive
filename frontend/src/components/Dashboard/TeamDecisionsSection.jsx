@@ -135,12 +135,12 @@ const TeamDecisionsSection = ({
     { value: 'growth', label: 'Growth Team', team: 'sales' },
     { value: 'sdr', label: 'SDR Team', team: 'sales' },
     { value: 'ae', label: 'AE Team', team: 'sales' },
-    { value: 'network', label: 'Network Team', team: 'sales' },
-    { value: 'partnership', label: 'Partnership Team', team: 'sales' },
-    { value: 'product', label: 'Product Team', team: 'tech' },
-    { value: 'ml', label: 'ML Team', team: 'tech' },
-    { value: 'frontend', label: 'Frontend Team', team: 'tech' },
-    { value: 'backend', label: 'Backend Team', team: 'tech' }
+    // { value: 'network', label: 'Network Team', team: 'sales' },
+    // { value: 'partnership', label: 'Partnership Team', team: 'sales' },
+    // { value: 'product', label: 'Product Team', team: 'tech' },
+    // { value: 'ml', label: 'ML Team', team: 'tech' },
+    // { value: 'frontend', label: 'Frontend Team', team: 'tech' },
+    // { value: 'backend', label: 'Backend Team', team: 'tech' }
   ];
 
   const selectedOption = allSubTeams.find(option => option.value === selectedSubTeam);
