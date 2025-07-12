@@ -22,7 +22,7 @@ function AppContent() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://3.110.188.16:8000/api/generate-weekly-summaries', {
+      const response = await fetch('https://514f88d0568e.ngrok-free.app/api/generate-weekly-summaries', {
         method: 'POST',
         headers: {
           'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
